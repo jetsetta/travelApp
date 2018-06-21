@@ -1,32 +1,18 @@
 <html>
-<head>
-  <link rel="stylesheet" type="text/css" href="site.css">
-</head>
+  <head></head>
 
-<body>
+  </body>
+    <h1>Register a New Profile<h1>
 
-</body>
-  <form class="" action="/trips" method="post" />
-    <input type="text" name="departureCity" placeholder="Departure City" />
-    <input type="text" name="arrivalCity" placeholder="Arrival City" />
-    <input type="text" name="departureDate" placeholder="Departure Date" />
-    <input type="text" name="returnDate" placeholder="Return Date" />
-    <input type="text" name="imageURL" placeholder="imageURL" />
-    <input type="submit" />
-  </form>
+    <form action='/register' method="post"/>
+      <input type="text" name="username"/>
+      <input type="text" name="password"/>
+      <input type="submit"/>
+    </form>
 
-  <h3>Your Trips</h3>
+    <hr>
 
-  <ul>
-  {{#tripList}}
-    <li>
-      <p>Departure City: {{departureCity}}</p>
-      <p>Arrival City: {{arrivalCity}}</p>
-      <p>Departure Date: {{departureDate}}</p>
-      <p>Return Date: {{returnDate}}</p>
-      <p><img src = '{{imageURL}}'></p>
-    </li>
-  {{/tripList}}
-  </ul>
-
-</html>
+    <h1>Or Log In<h1>
+    <form action="/login" method="get">
+      <input type="submit" value="Log In">
+    </form>

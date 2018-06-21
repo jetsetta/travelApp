@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="site.css">
+  </head>
+
+  <body>
+
+    <h3>Add A New Trip</h3>
+    <form class="" action="/trips" method="post" />
+      <input type="text" name="departureCity" placeholder="Departure City" />
+      <input type="text" name="arrivalCity" placeholder="Arrival City" />
+      <input type="text" name="departureDate" placeholder="Departure Date" />
+      <input type="text" name="returnDate" placeholder="Return Date" />
+      <input type="text" name="imageURL" placeholder="Image URL" />
+      <input type="submit" />
+    </form>
+
+    <form action="/logout" method="get">
+      <input type="hidden" name="sessionUser" value="{{req.session.username}}"/>
+      <input type="submit" value="Logout"/>
+    </form>
+
+    <hr>
+
+    <h3>Your Trips</h3>
+
+    <ul>
+    {{#tripList}}
+      <li>
+        <p>Departure City: {{departureCity}}</p>
+        <p>Arrival City: {{arrivalCity}}</p>
+        <p>Departure Date: {{departureDate}}</p>
+        <p>Return Date: {{returnDate}}</p>
+        <p><img src="{{imageURL}}"></p>
+
+        <form action="/deleteTrip" method="get">
+          <input type="hidden" value="{{tripID}}"/>
+          <input type="submit" value="Delete"/>
+        </form>
+      </li>
+    {{/tripList}}
+    </ul>
+
+  </body>
+
+</html>
