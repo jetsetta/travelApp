@@ -124,7 +124,10 @@ app.post('/deleteTrip', function(req, res){
 })
 
 app.get('/chat', function(req, res){
-  res.render(__dirname + '/views/chat.mustache')
+  let username = req.session.username
+  console.log(username)
+
+  res.render(__dirname + '/views/chat.mustache', {username : username})
 })
 
 io.on('connection',function(socket){

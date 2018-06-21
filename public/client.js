@@ -3,10 +3,11 @@ let socket = io();
 let btnSend = document.getElementById('btnSend')
 let chatMessageTextBox = document.getElementById('chatMessageTextBox')
 let chatMessageList = document.getElementById('chatMessageList')
+let chatMessageUser = document.getElementById('chatMessageUser')
 
 btnSend.addEventListener('click', function(){
 
-  let message = chatMessageTextBox.value
+  let message = chatMessageUser.value + ': ' + chatMessageTextBox.value
   socket.emit('chat', message)
 })
 
