@@ -1,18 +1,18 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="site.css">
   </head>
 
   <body>
 
-    <h3>Add A New Trip</h3>
+    <h2>Add A New Trip</h2>
     <form class="" action="/trips" method="post" />
       <input type="text" name="departureCity" placeholder="Departure City" />
       <input type="text" name="arrivalCity" placeholder="Arrival City" />
       <input type="text" name="departureDate" placeholder="Departure Date" />
       <input type="text" name="returnDate" placeholder="Return Date" />
-      <input type="text" name="imageURL" placeholder="Image URL" />
+      <input type="text" name="imageURL" placeholder="imageURL" />
       <input type="submit" />
+      <p></p>
     </form>
 
     <form action="/logout" method="get">
@@ -22,7 +22,14 @@
 
     <hr>
 
-    <h3>Your Trips</h3>
+    <h2>Go to Chat Window</h2>
+    <form action="/chat" method="get">
+      <input type="submit"/>
+    </form>
+
+    <hr>
+
+    <h2>Your Trips</h2>
 
     <ul>
     {{#tripList}}
@@ -31,16 +38,14 @@
         <p>Arrival City: {{arrivalCity}}</p>
         <p>Departure Date: {{departureDate}}</p>
         <p>Return Date: {{returnDate}}</p>
-        <p><img src="{{imageURL}}"></p>
+        <p><img src = '{{imageURL}}'></p>
 
-        <form action="/deleteTrip" method="get">
-          <input type="hidden" value="{{tripID}}"/>
+        <form action="/deleteTrip" method="post">
+          <input type="hidden" name="tripID" value="{{tripID}}"/>
           <input type="submit" value="Delete"/>
         </form>
       </li>
     {{/tripList}}
     </ul>
-
-  </body>
 
 </html>

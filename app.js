@@ -1,8 +1,10 @@
 const express = require('express');
-const app = require('express')();
+const app = express();
 const mustacheExpress = require('mustache-express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server)
 
 const User = require('./public/user');
 const Trip = require('./public/trip');
@@ -12,12 +14,13 @@ let currentUser = {}
 
 
 app.use(session({
-  secret: 'justwork',
+  secret: guid(),
   resave: false,
   saveUninitialized: false
 }))
 
 app.use(express.static('public'))
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -30,6 +33,7 @@ app.use(function(req, res, next) {
 app.engine('mustache',mustacheExpress())
 app.set('views','./views')
 app.set('view engine', 'mustache')
+
 
 app.get('/',function(req,res){
   res.render('index')
@@ -97,20 +101,19 @@ app.get('/trips', function(req, res){
 app.post('/trips',function(req,res){
   let departureCity = req.body.departureCity
   let arrivalCity = req.body.arrivalCity
+  let imageURL = req.body.imageURL
   let departureDate = req.body.departureDate
   let returnDate = req.body.returnDate
-  let imageURL = req.body.imageURL
   let tripID = guid()
 
   let trip = new Trip (departureCity, arrivalCity, departureDate, returnDate, imageURL, tripID)
 
   currentUser.trips.push(trip)
-  console.log(imageURL)
 
   res.render('trips', {tripList : currentUser.trips})
 })
 
-app.get('/deleteTrip', function(req, res){
+app.post('/deleteTrip', function(req, res){
   let tripID = req.body.tripID
 
   users.find(function(user) {return user.username == currentUser.username}).trips
@@ -119,6 +122,21 @@ app.get('/deleteTrip', function(req, res){
 
   res.render('trips', {tripList : currentUser.trips})
 })
+
+app.get('/chat', function(req, res){
+  res.render(__dirname + '/views/chat.mustache')
+})
+
+io.on('connection',function(socket){
+  console.log('Connected to the Mothership')
+
+  socket.on('chat',function(message){
+    console.log(message)
+
+    io.emit('chat', message)
+  })
+})
+
 
 function validateLogin(req,res,next) {
   if(req.session.username) {
@@ -137,4 +155,4 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-app.listen(3000, () => console.log("Houston we DON'T have a problem"))
+server.listen(3000, () => console.log("Houston we DON'T have a problem"))

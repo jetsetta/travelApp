@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>Chat Box</h1>
+
+    <ul id="chatMessageList">
+    </ul>
+
+    <hr>
+
+    <h2>Send a Message</h2>
+    <input type="text" id="chatMessageTextBox">
+    <button id="btnSend">Send</button>
+
+    <hr>
+
+    <h2>Back to Trips<h2>
+    <form action="/trips" method="get">
+      <input type="submit">
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

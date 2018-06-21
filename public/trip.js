@@ -1,10 +1,11 @@
 class Trip {
-  constructor(departureCity, arrivalCity, departureDate, returnDate,imageURL){
+  constructor(departureCity, arrivalCity, departureDate, returnDate,imageURL, tripID){
     this.departureCity = departureCity
     this.arrivalCity = arrivalCity
     this.departureDate = departureDate
     this.returnDate = returnDate
-    this.imageurl = imageURL
+    this.imageURL = imageURL
+    this.tripID = tripID
   }
 }
 
